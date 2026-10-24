@@ -1,4 +1,19 @@
 ;==============================================================================
+;  EGACHK - EGA index register check for the EC-1842 PC (EC1842.E024 adapter)
+;  Copyright (C) 2026 A.V.L.
+;
+;  This program is free software: you can redistribute it and/or modify
+;  it under the terms of the GNU General Public License version 3 as
+;  published by the Free Software Foundation.
+;
+;  This program is distributed in the hope that it will be useful,
+;  but WITHOUT ANY WARRANTY; without even the implied warranty of
+;  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;  GNU General Public License for more details.
+;
+;  You should have received a copy of the GNU General Public License
+;  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+;==============================================================================
 ;  EGACHK 1.02 - сбивают ли обращения к НГМД/НМД индексные регистры ЕГА.
 ;
 ;  Драйвер EGA.DRV Виндоус 3.0/3.1 ставит индекс секвенсора (3C4h) = 2 (маска
@@ -18,8 +33,6 @@
 ;         если плоскость 2 изменилась - индекс 3C4h уже не 2.
 ;  После каждой проверки регистры секвенсора и ГК выставляются заново.
 ;
-;  EGACHK [d]   d - номер диска для чтения сектора (0 - A:, 80h - НМД);
-;               без параметра: 0 и 80h.
 ;  Итог по каждому действию: OK / SEQ (сбит индекс 3C4h) / GC (сбит 3CEh).
 ;  Запускать в ДОС без Виндоус; резидентные драйверы (мышь!) лучше выгрузить,
 ;  затем повторить с ними - так видно, кто виноват: железо или резидент.
@@ -522,7 +535,7 @@ h3_p:   mov     dl,al
 hex3    ENDP
 m_h     DB      'h: $'
 ;------------------------------------------------------------------------------
-ports   DW      004h,084h,0C4h                  ; 0C4h - КВП (база): не под M286!
+ports   DW      004h,084h,0C4h                  ; 0C4h - КВП (база): не под монитором 286 режима!
         DW      104h,114h,124h,134h,144h,154h,164h,174h,184h,194h,1A4h,1B4h
         DW      1C4h,1D4h,1E4h,1F4h
         DW      204h,244h,254h,264h,274h,284h,294h,2A4h,2B4h,2C4h,2D4h,2E4h,2F4h
